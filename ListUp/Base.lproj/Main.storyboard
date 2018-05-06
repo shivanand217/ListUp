@@ -35,6 +35,9 @@
                     <navigationItem key="navigationItem" title="ListUp" id="613-Hc-iFv">
                         <barButtonItem key="rightBarButtonItem" style="plain" systemItem="add" id="EXj-4v-3Nd">
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <connections>
+                                <action selector="addButtonPressed:" destination="LAs-gs-L9u" id="1KK-gv-rLq"/>
+                            </connections>
                         </barButtonItem>
                     </navigationItem>
                 </tableViewController>
