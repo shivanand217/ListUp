@@ -32,11 +32,15 @@
                             <outlet property="delegate" destination="LAs-gs-L9u" id="eoV-c6-2uL"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="ListUp" id="613-Hc-iFv"/>
+                    <navigationItem key="navigationItem" title="ListUp" id="613-Hc-iFv">
+                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="add" id="EXj-4v-3Nd">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mvi-xO-dJp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="518" y="74"/>
+            <point key="canvasLocation" x="479" y="73"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="5A6-AT-izS">

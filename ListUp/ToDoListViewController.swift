@@ -35,17 +35,16 @@ class ToDoListViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // print(itemArray[indexPath.row])
         
         // add checkmark
-        tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
         
         // remove checkmark
         if tableView.cellForRow(at: indexPath)?.accessoryType == .checkmark {
-            
+
            tableView.cellForRow(at: indexPath)?.accessoryType = .none
         } else {
             
+           tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
         }
         
         tableView.deselectRow(at: indexPath, animated: true)
