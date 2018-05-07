@@ -96,8 +96,10 @@ class ToDoListViewController: UITableViewController {
             let encoder = PropertyListEncoder()
             
             do {
+                
                 let data = try encoder.encode(self.itemArray)
                 try data.write(to: self.dataFilePath!)
+            
             } catch {
                 print("Error encoding item array, \(error)")
             }
@@ -105,7 +107,8 @@ class ToDoListViewController: UITableViewController {
             self.tableView.reloadData()
         }
         
-        alert.addTextField { (alertTextField) in
+        alert.addTextField {
+            (alertTextField) in
             
             alertTextField.placeholder = "Create New To-Do"
             
