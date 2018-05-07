@@ -98,9 +98,7 @@ class ToDoListViewController: UITableViewController {
             do {
                 let data = try encoder.encode(self.itemArray)
                 try data.write(to: self.dataFilePath!)
-                
             } catch {
-                
                 print("Error encoding item array, \(error)")
             }
             
