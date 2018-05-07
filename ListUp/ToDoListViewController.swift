@@ -10,13 +10,17 @@ import UIKit
 
 class ToDoListViewController: UITableViewController {
 
-    var itemArray = ["Buy Milk", "Play game", "watch GOT"]
+    var itemArray = ["Buy Milk", "Play game", "Watch GOT"]
     
+    // An interface to User defaults Database
     let defaults = UserDefaults.standard
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        if let items = defaults.array(forKey: "TodoListArray") as? [String] {
+            itemArray = items
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -54,7 +58,6 @@ class ToDoListViewController: UITableViewController {
     
     // Adding Items through add button
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
-        
         var textField = UITextField()
         
         let alert = UIAlertController(title: "Add New To-do item", message: "", preferredStyle: .alert)
