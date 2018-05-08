@@ -16,6 +16,7 @@ class ToDoListViewController: UITableViewController {
     // An interface to User defaults Database
     let defaults = UserDefaults.standard
     
+    // we Encode and Decode our data o this pre-specified FilePath
     let dataFilePath = FileManager.default.urls(for: .documentDirectory,
                             in: .userDomainMask).first?.appendingPathComponent("Items.plist")
     
@@ -95,7 +96,7 @@ class ToDoListViewController: UITableViewController {
             self.itemArray.append(newItem)
             
             // when adding a new item save encoded data to items.plist
-            saveItems()
+            self.saveItems()
         }
         
         alert.addTextField {
@@ -119,7 +120,7 @@ class ToDoListViewController: UITableViewController {
         let encoder = PropertyListEncoder()
         
         do {
-            let data = try encoder.encode(itemArray)
+            let data = try! encoder.encode(itemArray)
             try data.write(to: dataFilePath!)
             
         } catch {
@@ -137,7 +138,7 @@ class ToDoListViewController: UITableViewController {
             let decoder = PropertyListDecoder()
             
             do {
-                itemArray = try? decoder.decode([Item].self, from: data)
+                itemArray = try! decoder.decode([Item].self, from: data)
             } catch {
                 
                 print("Error decoding the data, \(error)")
