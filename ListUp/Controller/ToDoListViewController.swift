@@ -20,6 +20,7 @@ class ToDoListViewController: UITableViewController {
                             in: .userDomainMask).first?.appendingPathComponent("Items.plist")
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         
         let newItem = Item()
@@ -34,10 +35,7 @@ class ToDoListViewController: UITableViewController {
         newItem3.title = "Bhangra Dance"
         itemArray.append(newItem3)
         
-        // objects from saved database
-        if let items = defaults.array(forKey: "TodoListArray") as? [Item] {
-            itemArray = items
-        }
+        loadItems()
     }
 
     override func didReceiveMemoryWarning() {
@@ -66,11 +64,15 @@ class ToDoListViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         if itemArray[indexPath.row].done == true {
+            
             itemArray[indexPath.row].done = false
         } else {
+        
             itemArray[indexPath.row].done = true
         }
-    
+        // when toggle the checkmark save the encoded data to items.plist
+        saveItems()
+        
         // reload our tableView after any changes
         tableView.reloadData()
         
@@ -92,27 +94,16 @@ class ToDoListViewController: UITableViewController {
             
             self.itemArray.append(newItem)
             
-            //self.defaults.set(self.itemArray, forKey: "TodoListArray")
-            let encoder = PropertyListEncoder()
-            
-            do {
-                
-                let data = try encoder.encode(self.itemArray)
-                try data.write(to: self.dataFilePath!)
-            
-            } catch {
-                print("Error encoding item array, \(error)")
-            }
-            
-            self.tableView.reloadData()
+            // when adding a new item save encoded data to items.plist
+            saveItems()
         }
         
         alert.addTextField {
             (alertTextField) in
             
             alertTextField.placeholder = "Create New To-Do"
-            
             print("+ Pressed")
+            
             textField = alertTextField
             print(alertTextField.text!)
         }
@@ -120,6 +111,38 @@ class ToDoListViewController: UITableViewController {
         alert.addAction(action)
         
         present(alert, animated: true, completion: nil)
+    }
+    
+    // Encode the data
+    func saveItems() {
+        // encoder object
+        let encoder = PropertyListEncoder()
+        
+        do {
+            let data = try encoder.encode(itemArray)
+            try data.write(to: dataFilePath!)
+            
+        } catch {
+            print("Error encoding the data, \(error)")
+        }
+        
+        self.tableView.reloadData()
+    }
+    
+    // Decode the data
+    func loadItems() {
+        
+        if let data = try? Data(contentsOf: dataFilePath!) {
+            // decoder object
+            let decoder = PropertyListDecoder()
+            
+            do {
+                itemArray = try? decoder.decode([Item].self, from: data)
+            } catch {
+                
+                print("Error decoding the data, \(error)")
+            }
+        }
     }
     
 }
