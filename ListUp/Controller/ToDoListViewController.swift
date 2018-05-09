@@ -180,10 +180,25 @@ extension ToDoListViewController : UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         print("search Bar clicked")
-        let request : NSFetchRequest<Item> = Item.fetchRequest()
         
-        print(searchBar.text!)
+        let request : NSFetchRequest<Item> = Item.fetchRequest()
+        let predicate = NSPredicate(format: "title CONTAINS %@", searchBar.text!)
+        
+        //print(searchBar.text!)
+        request.predicate = predicate
+        
+        let sortDescriptor = NSSortDescriptor(key: "title", ascending: true)
+        request.sortDescriptors = [sortDescriptor]
+        
+        do {
+            
+            itemArray = try context.fetch(request)
+        } catch {
+            
+            print("Error fetching data from the context \(error)")
+        }
     }
+    
 }
 
 
