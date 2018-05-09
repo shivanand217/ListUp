@@ -9,16 +9,16 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Table View Controller-->
+        <!--ListUp-->
         <scene sceneID="TW6-4L-yfm">
             <objects>
-                <tableViewController id="Lys-IO-MHi" sceneMemberID="viewController">
+                <tableViewController id="Lys-IO-MHi" customClass="CategoryViewController" customModule="ListUp" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Ijf-bY-75i">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="ySe-sv-yuh">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CategoryCell" id="ySe-sv-yuh">
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ySe-sv-yuh" id="RC9-cJ-oiG">
@@ -32,16 +32,18 @@
                             <outlet property="delegate" destination="Lys-IO-MHi" id="xeM-Kd-zYi"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="1LM-xf-r0r"/>
+                    <navigationItem key="navigationItem" title="ListUp" id="1LM-xf-r0r">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="b1E-zl-fBK"/>
+                    </navigationItem>
                     <connections>
                         <segue destination="LAs-gs-L9u" kind="show" identifier="goToItems" id="Rch-Ee-slj"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bTt-0H-L4Y" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="143" y="72"/>
+            <point key="canvasLocation" x="164" y="72"/>
         </scene>
-        <!--ListUp-->
+        <!--Items-->
         <scene sceneID="WRh-DQ-Eju">
             <objects>
                 <tableViewController id="LAs-gs-L9u" customClass="ToDoListViewController" customModule="ListUp" customModuleProvider="target" sceneMemberID="viewController">
@@ -72,7 +74,7 @@
                             <outlet property="delegate" destination="LAs-gs-L9u" id="eoV-c6-2uL"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="ListUp" id="613-Hc-iFv">
+                    <navigationItem key="navigationItem" title="Items" id="613-Hc-iFv">
                         <barButtonItem key="rightBarButtonItem" style="plain" systemItem="add" id="EXj-4v-3Nd">
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
@@ -83,7 +85,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mvi-xO-dJp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="930" y="72"/>
+            <point key="canvasLocation" x="887" y="72"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="5A6-AT-izS">
@@ -105,7 +107,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JEt-Hs-QlP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-631" y="72"/>
+            <point key="canvasLocation" x="-543" y="72"/>
         </scene>
     </scenes>
 </document>
