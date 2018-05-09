@@ -172,6 +172,7 @@ class ToDoListViewController: UITableViewController {
     
 }
 
+// extension of View class
 extension ToDoListViewController : UISearchBarDelegate {
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
