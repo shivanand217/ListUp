@@ -9,7 +9,9 @@
 import UIKit
 import CoreData
 
-class ToDoListViewController: UITableViewController, UISearchBarDelegate {
+/** Rule1 = Whenever adding any delegate methods or class set it to self **/
+
+class ToDoListViewController: UITableViewController {
 
     // Item objects
     var itemArray = [Item]()
@@ -18,7 +20,7 @@ class ToDoListViewController: UITableViewController, UISearchBarDelegate {
         let defaults = UserDefaults.standard
     **/
     
-    // For Encode and Decode our data to this pre-specified FilePath
+    // For Encoding and Decoding our data to this pre-specified FilePath
     let dataFilePath = FileManager.default.urls(for: .documentDirectory,
                             in: .userDomainMask).first?.appendingPathComponent("Items.plist")
     
@@ -28,7 +30,7 @@ class ToDoListViewController: UITableViewController, UISearchBarDelegate {
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        print(dataFilePath!)
+        //print(dataFilePath!)
         
         loadItems()
     }
@@ -59,15 +61,16 @@ class ToDoListViewController: UITableViewController, UISearchBarDelegate {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         // delete from context
-        context.delete(itemArray[indexPath.row])
-        // delete from the array
-        itemArray.remove(at: indexPath.row)
+        // context.delete(itemArray[indexPath.row])
         
-        /**if itemArray[indexPath.row].done == true {
+        // delete from the array
+        // itemArray.remove(at: indexPath.row)
+        
+        if itemArray[indexPath.row].done == true {
             itemArray[indexPath.row].done = false
         } else {
             itemArray[indexPath.row].done = true
-        }**/
+        }
         
         saveItems()
         
@@ -82,8 +85,8 @@ class ToDoListViewController: UITableViewController, UISearchBarDelegate {
         let alert = UIAlertController(title: "Add New To-do item", message: "", preferredStyle: .alert)
         
         let action = UIAlertAction(title: "Add Item", style: .default) { (action) in
-            // on pressing add item button
             
+            // on pressing add item button
             let newItem = Item(context: self.context)
             newItem.title = textField.text!
             newItem.done = false
@@ -125,11 +128,10 @@ class ToDoListViewController: UITableViewController, UISearchBarDelegate {
     
     // Fetch from CoreData
     func loadItems() {
-        
         let request : NSFetchRequest<Item> = Item.fetchRequest()
+        
         do {
            itemArray = try! context.fetch(request)
-        
         } catch {
             print("Error fetching data from context \(error)")
         }
@@ -167,7 +169,23 @@ class ToDoListViewController: UITableViewController, UISearchBarDelegate {
 //            }
 //        }
 //    }
-
     
 }
+
+extension ToDoListViewController : UISearchBarDelegate {
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        print("cancel button clicked")
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        print("search Bar clicked")
+        let request : NSFetchRequest<Item> = Item.fetchRequest()
+        
+        print(searchBar.text!)
+    }
+}
+
+
+
 
