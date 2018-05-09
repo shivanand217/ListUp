@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class ToDoListViewController: UITableViewController {
+class ToDoListViewController: UITableViewController, UISearchBarDelegate {
 
     // Item objects
     var itemArray = [Item]()
@@ -28,7 +28,6 @@ class ToDoListViewController: UITableViewController {
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        
         print(dataFilePath!)
         
         loadItems()
@@ -59,15 +58,18 @@ class ToDoListViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        if itemArray[indexPath.row].done == true {
+        // delete from context
+        context.delete(itemArray[indexPath.row])
+        // delete from the array
+        itemArray.remove(at: indexPath.row)
+        
+        /**if itemArray[indexPath.row].done == true {
             itemArray[indexPath.row].done = false
         } else {
             itemArray[indexPath.row].done = true
-        }
-        saveItems()
+        }**/
         
-        // reload our tableView after any changes
-        tableView.reloadData()
+        saveItems()
         
         tableView.deselectRow(at: indexPath, animated: true)
     }
@@ -111,6 +113,7 @@ class ToDoListViewController: UITableViewController {
     
     // Save to CoreData
     func saveItems() {
+        
         do {
             try context.save()
         } catch {
@@ -122,8 +125,8 @@ class ToDoListViewController: UITableViewController {
     
     // Fetch from CoreData
     func loadItems() {
-        let request : NSFetchRequest<Item> = Item.fetchRequest()
         
+        let request : NSFetchRequest<Item> = Item.fetchRequest()
         do {
            itemArray = try! context.fetch(request)
         
@@ -164,6 +167,7 @@ class ToDoListViewController: UITableViewController {
 //            }
 //        }
 //    }
-//
+
+    
 }
 
