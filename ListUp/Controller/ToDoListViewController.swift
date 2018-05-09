@@ -198,6 +198,10 @@ extension ToDoListViewController : UISearchBarDelegate {
         if searchBar.text?.count == 0 {
             print("no text in SearchBar")
             loadItems()
+            
+            DispatchQueue.main.async {
+                searchBar.resignFirstResponder()
+            }
         }
     }
     
