@@ -29,7 +29,9 @@ class ToDoListViewController: UITableViewController {
         
         super.viewDidLoad()
         
-        //loadItems()
+        print(dataFilePath!)
+        
+        loadItems()
     }
 
     override func didReceiveMemoryWarning() {
@@ -58,13 +60,10 @@ class ToDoListViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         if itemArray[indexPath.row].done == true {
-            
             itemArray[indexPath.row].done = false
         } else {
-        
             itemArray[indexPath.row].done = true
         }
-        // when toggle the checkmark save the encoded data to items.plist
         saveItems()
         
         // reload our tableView after any changes
