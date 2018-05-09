@@ -32,7 +32,8 @@ class ToDoListViewController: UITableViewController {
         super.viewDidLoad()
         //print(dataFilePath!)
         
-        loadItems()
+        let request : NSFetchRequest<Item> = Item.fetchRequest()
+        loadItems(with: request)
     }
 
     override func didReceiveMemoryWarning() {
@@ -116,25 +117,24 @@ class ToDoListViewController: UITableViewController {
     
     // Save to CoreData
     func saveItems() {
-        
         do {
             try context.save()
         } catch {
             print("Error saving the message. \(error)")
         }
         
-        self.tableView.reloadData()
+        tableView.reloadData()
     }
     
     // Fetch from CoreData
-    func loadItems() {
-        let request : NSFetchRequest<Item> = Item.fetchRequest()
+    func loadItems(with request : NSFetchRequest<Item> = Item.fetchRequest()) {
         
         do {
            itemArray = try! context.fetch(request)
         } catch {
             print("Error fetching data from context \(error)")
         }
+        tableView.reloadData()
     }
     
     
@@ -172,6 +172,7 @@ class ToDoListViewController: UITableViewController {
     
 }
 
+
 // extension of View class
 extension ToDoListViewController : UISearchBarDelegate {
     
@@ -180,7 +181,6 @@ extension ToDoListViewController : UISearchBarDelegate {
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        
         // print("search Bar clicked")
         
         let request : NSFetchRequest<Item> = Item.fetchRequest()
@@ -191,13 +191,7 @@ extension ToDoListViewController : UISearchBarDelegate {
         let sortDescriptor = NSSortDescriptor(key: "title", ascending: true)
         request.sortDescriptors = [sortDescriptor]
         
-        do {
-            itemArray = try context.fetch(request)
-        } catch {
-            print("Error fetching data from the context \(error)")
-        }
-        
-        tableView.reloadData()
+        loadItems(with: request)
     }
     
 }
