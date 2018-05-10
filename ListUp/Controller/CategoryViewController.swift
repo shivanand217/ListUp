@@ -15,7 +15,7 @@ class CategoryViewController: UITableViewController {
     
     // For Encoding and Decoding our data to this pre-specified FilePath
     let dataFilePath = FileManager.default.urls(for: .documentDirectory,
-                                                in: .userDomainMask).first?.appendingPathComponent("Items.plist")
+                                                in: .userDomainMask).first?.appendingPathComponent("Category.plist")
     
     // shared singleton object of our Coredata context
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
@@ -23,10 +23,10 @@ class CategoryViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //print(dataFilePath!)
+        // print(dataFilePath!)
         
-        let request : NSFetchRequest<Item> = Item.fetchRequest()
-        //loadItems(with: request)
+        let request : NSFetchRequest<Category> = Category.fetchRequest()
+        loadCategories(with: request)
     }
     
     override func didReceiveMemoryWarning() {
@@ -45,6 +45,20 @@ class CategoryViewController: UITableViewController {
         cell.textLabel?.text = item.name
         return cell
     }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        performSegue(withIdentifier: "goToItems", sender: self)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        let destinationViewController = segue.destination as! ToDoListViewController
+    
+        if let indexPath = tableView.indexPathForSelectedRow {
+            destinationViewController.selectedCategory = categoryArray[indexPath.row]
+        }
+    }
 
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
         // print("add button pressed")
@@ -52,22 +66,22 @@ class CategoryViewController: UITableViewController {
         var textField = UITextField()
         let alert = UIAlertController(title: "Add New Category", message: "", preferredStyle: .alert)
         
-        let action = UIAlertAction(title: "Add Item", style: .default) { (action) in
+        let action = UIAlertAction(title: "Add Category", style: .default) { (action) in
             
-            let newItem = Category(context: self.context)
-            newItem.name = textField.text!
+            let newCategory = Category(context: self.context)
+            newCategory.name = textField.text!
             
-            self.categoryArray.append(newItem)
-            self.saveItems()
+            self.categoryArray.append(newCategory)
+            self.saveCategory()
             
             self.tableView.reloadData()
         }
         
-        
         alert.addAction(action)
         alert.addTextField { (alertTextField) in
-            alertTextField.placeholder = "Create New Category"
+            
             textField = alertTextField
+            alertTextField.placeholder = "Create New Category"
             
             print(alertTextField.text!)
         }
@@ -75,14 +89,25 @@ class CategoryViewController: UITableViewController {
         present(alert, animated: true, completion: nil)
     }
     
-    func saveItems() {
+    func saveCategory() {
         
+        do {
+            try! context.save()
+        } catch {
+            print("Error saving the Category.")
+        }
     }
     
-    func loadItems(with request : NSFetchRequest<Category> = Category.fetchRequest()) {
+    func loadCategories(with request : NSFetchRequest<Category> = Category.fetchRequest()) {
         
+        do {
+            categoryArray = try! context.fetch(request)
+        } catch {
+            print("Error loading Categories")
+        }
+        
+        tableView.reloadData()
     }
-    
 }
 
 extension CategoryViewController : UISearchBarDelegate {
@@ -96,13 +121,14 @@ extension CategoryViewController : UISearchBarDelegate {
         let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
         request.sortDescriptors = [sortDescriptor]
         
-        loadItems(with: request)
+        loadCategories(with: request)
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        
         if searchBar.text?.count == 0 {
             print("no text in SearchBar")
-            loadItems()
+            loadCategories()
             
             DispatchQueue.main.async {
                 searchBar.resignFirstResponder()

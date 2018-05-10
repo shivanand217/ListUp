@@ -16,6 +16,12 @@ class ToDoListViewController: UITableViewController {
     // Item objects
     var itemArray = [Item]()
     
+    var selectedCategory : Category? {
+        didSet {
+            loadItems()
+        }
+    }
+    
     /** An interface to User defaults Database
         let defaults = UserDefaults.standard
     **/
@@ -90,8 +96,10 @@ class ToDoListViewController: UITableViewController {
             
             // on pressing add item button
             let newItem = Item(context: self.context)
+            
             newItem.title = textField.text!
             newItem.done = false
+            newItem.parentCategory = self.selectedCategory
             
             self.itemArray.append(newItem)
             
@@ -119,7 +127,7 @@ class ToDoListViewController: UITableViewController {
         do {
             try context.save()
         } catch {
-            print("Error saving the message. \(error)")
+            print("Error saving the Item. \(error)")
         }
         tableView.reloadData()
     }
