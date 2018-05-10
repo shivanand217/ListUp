@@ -44,13 +44,12 @@ class CategoryViewController: UITableViewController {
         
         cell.textLabel?.text = item.name
         return cell
-        
     }
 
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
-        //print("add Button Pressed")
-    
-        let textField = UITextField()
+        // print("add button pressed")
+        
+        var textField = UITextField()
         let alert = UIAlertController(title: "Add New Category", message: "", preferredStyle: .alert)
         
         let action = UIAlertAction(title: "Add Item", style: .default) { (action) in
@@ -59,8 +58,21 @@ class CategoryViewController: UITableViewController {
             newItem.name = textField.text!
             
             self.categoryArray.append(newItem)
+            self.saveItems()
+            
+            self.tableView.reloadData()
         }
         
+        
+        alert.addAction(action)
+        alert.addTextField { (alertTextField) in
+            alertTextField.placeholder = "Create New Category"
+            textField = alertTextField
+            
+            print(alertTextField.text!)
+        }
+        
+        present(alert, animated: true, completion: nil)
     }
     
     func saveItems() {

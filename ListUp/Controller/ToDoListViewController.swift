@@ -81,8 +81,9 @@ class ToDoListViewController: UITableViewController {
     
     // Adding Items through add button
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
-        var textField = UITextField()
+        // print("Add button Pressed")
         
+        var textField = UITextField()
         let alert = UIAlertController(title: "Add New To-do", message: "", preferredStyle: .alert)
         
         let action = UIAlertAction(title: "Add Item", style: .default) { (action) in
@@ -97,17 +98,15 @@ class ToDoListViewController: UITableViewController {
             self.saveItems()
         }
         
+        alert.addAction(action)
         alert.addTextField {
             (alertTextField) in
             
             alertTextField.placeholder = "Create New To-Do"
-            print("+ Pressed")
-            
+           
             textField = alertTextField
             print(alertTextField.text!)
         }
-        
-        alert.addAction(action)
         
         present(alert, animated: true, completion: nil)
     }
