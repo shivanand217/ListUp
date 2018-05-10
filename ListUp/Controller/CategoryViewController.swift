@@ -51,7 +51,7 @@ class CategoryViewController: UITableViewController {
         //print("add Button Pressed")
     
         let textField = UITextField()
-        let alert = UIAlertController(title: "add new Category", message: "", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Add New Category", message: "", preferredStyle: .alert)
         
         let action = UIAlertAction(title: "Add Item", style: .default) { (action) in
             
@@ -59,9 +59,45 @@ class CategoryViewController: UITableViewController {
             newItem.name = textField.text!
             
             self.categoryArray.append(newItem)
-            
         }
         
     }
     
+    func saveItems() {
+        
+    }
+    
+    func loadItems(with request : NSFetchRequest<Category> = Category.fetchRequest()) {
+        
+    }
+    
 }
+
+extension CategoryViewController : UISearchBarDelegate {
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        
+        let request : NSFetchRequest<Category> = Category.fetchRequest()
+        let predicate = NSPredicate(format: "name CONTAINS[cd] %@", searchBar.text!)
+        
+        request.predicate = predicate
+        let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
+        request.sortDescriptors = [sortDescriptor]
+        
+        loadItems(with: request)
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchBar.text?.count == 0 {
+            print("no text in SearchBar")
+            loadItems()
+            
+            DispatchQueue.main.async {
+                searchBar.resignFirstResponder()
+            }
+        }
+    }
+    
+}
+
+

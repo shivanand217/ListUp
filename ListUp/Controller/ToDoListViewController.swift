@@ -122,7 +122,6 @@ class ToDoListViewController: UITableViewController {
         } catch {
             print("Error saving the message. \(error)")
         }
-        
         tableView.reloadData()
     }
     
