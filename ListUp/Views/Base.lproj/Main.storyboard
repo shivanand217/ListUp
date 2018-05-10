@@ -87,7 +87,8 @@
                             <outlet property="delegate" destination="LAs-gs-L9u" id="eoV-c6-2uL"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Items" id="613-Hc-iFv">
+                    <navigationItem key="navigationItem" title="Items" id="613-Hc-iFv" colorLabel="IBBuiltInLabel-Red">
+                        <barButtonItem key="backBarButtonItem" title="back" id="UuT-rK-T01"/>
                         <barButtonItem key="rightBarButtonItem" style="plain" systemItem="add" id="EXj-4v-3Nd">
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
