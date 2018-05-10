@@ -40,10 +40,28 @@ class CategoryViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryCell", for: indexPath)
+        let item = categoryArray[indexPath.row]
+        
+        cell.textLabel?.text = item.name
+        return cell
         
     }
 
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
+        //print("add Button Pressed")
+    
+        let textField = UITextField()
+        let alert = UIAlertController(title: "add new Category", message: "", preferredStyle: .alert)
+        
+        let action = UIAlertAction(title: "Add Item", style: .default) { (action) in
+            
+            let newItem = Category(context: self.context)
+            newItem.name = textField.text!
+            
+            self.categoryArray.append(newItem)
+            
+        }
         
     }
+    
 }

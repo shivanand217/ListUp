@@ -43,6 +43,9 @@
                     <navigationItem key="navigationItem" title="ListUp" id="1LM-xf-r0r">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="b1E-zl-fBK">
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <connections>
+                                <action selector="addButtonPressed:" destination="Lys-IO-MHi" id="pCG-Eb-K1Z"/>
+                            </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
