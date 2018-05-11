@@ -84,7 +84,6 @@ class ToDoListViewController: UITableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
-    
     // Adding Items through add button
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
         // print("Add button Pressed")
@@ -133,10 +132,18 @@ class ToDoListViewController: UITableViewController {
     }
     
     // Fetch from CoreData
-    func loadItems(with request : NSFetchRequest<Item> = Item.fetchRequest()) {
+    func loadItems(with request : NSFetchRequest<Item> = Item.fetchRequest(), predicate : NSPredicate? = nil) {
         
-        let predicate = NSPredicate(format: "parentCategory.name MATCHES %@", selectedCategory!.name!)
-        request.predicate = predicate
+        // for loading items of the selected category
+        let categoryPredicate = NSPredicate(format: "parentCategory.name MATCHES %@", selectedCategory!.name!)
+        
+         // adding compound Predicate
+        if let additionalPredicate = predicate {
+            request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [categoryPredicate, additionalPredicate])
+            
+        } else {
+            request.predicate = categoryPredicate
+        }
         
         do {
            itemArray = try! context.fetch(request)
@@ -147,7 +154,7 @@ class ToDoListViewController: UITableViewController {
     }
     
 
-/** Saving Info Via NSCoder
+/** Saving Information Via NSCoder
      // Encode the data
     func saveItems() {
         // encoder object
@@ -202,7 +209,7 @@ extension ToDoListViewController : UISearchBarDelegate {
         let sortDescriptor = NSSortDescriptor(key: "title", ascending: true)
         request.sortDescriptors = [sortDescriptor]
         
-        loadItems(with: request)
+        loadItems(with: request, predicate: predicate)
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {

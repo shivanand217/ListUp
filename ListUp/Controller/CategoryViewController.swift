@@ -44,6 +44,7 @@ class CategoryViewController: UITableViewController {
         
         cell.textLabel?.text = item.name
         return cell
+        
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
