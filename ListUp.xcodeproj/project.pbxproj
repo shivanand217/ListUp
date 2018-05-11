@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		18223A7320A157D200ABA70C /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 18223A7120A157D200ABA70C /* DataModel.xcdatamodeld */; };
 		1841B11720A38E8400D98C2A /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1841B11620A38E8400D98C2A /* CategoryViewController.swift */; };
 		18513B95209ED2B5002D7029 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18513B94209ED2B5002D7029 /* AppDelegate.swift */; };
 		18513B97209ED2B5002D7029 /* ToDoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18513B96209ED2B5002D7029 /* ToDoListViewController.swift */; };
@@ -16,6 +15,8 @@
 		18513B9F209ED2B7002D7029 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18513B9D209ED2B7002D7029 /* LaunchScreen.storyboard */; };
 		18513BAA209ED2B7002D7029 /* ListUpTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18513BA9209ED2B7002D7029 /* ListUpTests.swift */; };
 		18513BB5209ED2B7002D7029 /* ListUpUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18513BB4209ED2B7002D7029 /* ListUpUITests.swift */; };
+		18A0E83420A597F9000F7934 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A0E83320A597F9000F7934 /* Item.swift */; };
+		18A0E83620A59807000F7934 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A0E83520A59807000F7934 /* Category.swift */; };
 		63A4864C31C93011B9475DCB /* Pods_ListUpTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07FFD1657721516EC0C6EC59 /* Pods_ListUpTests.framework */; };
 		AB4516619EEFF570CF3B5EF9 /* Pods_ListUpUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66F59654128447B578E55CCB /* Pods_ListUpUITests.framework */; };
 		C0060F4885CF1E5F9371A139 /* Pods_ListUp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7517FEB30EAC43CDEE27C128 /* Pods_ListUp.framework */; };
@@ -40,7 +41,6 @@
 
 /* Begin PBXFileReference section */
 		07FFD1657721516EC0C6EC59 /* Pods_ListUpTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ListUpTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		18223A7220A157D200ABA70C /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
 		1841B11620A38E8400D98C2A /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
 		18513B91209ED2B5002D7029 /* ListUp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ListUp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		18513B94209ED2B5002D7029 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -55,6 +55,8 @@
 		18513BB0209ED2B7002D7029 /* ListUpUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ListUpUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		18513BB4209ED2B7002D7029 /* ListUpUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListUpUITests.swift; sourceTree = "<group>"; };
 		18513BB6209ED2B7002D7029 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		18A0E83320A597F9000F7934 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
+		18A0E83520A59807000F7934 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		1ADE91D2262F1A140FD163A6 /* Pods-ListUpTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ListUpTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ListUpTests/Pods-ListUpTests.debug.xcconfig"; sourceTree = "<group>"; };
 		2B99C79342E388E5DDBA74A4 /* Pods-ListUp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ListUp.release.xcconfig"; path = "Pods/Target Support Files/Pods-ListUp/Pods-ListUp.release.xcconfig"; sourceTree = "<group>"; };
 		66F59654128447B578E55CCB /* Pods_ListUpUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ListUpUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -96,7 +98,8 @@
 		18223A6C20A0408E00ABA70C /* Data Model */ = {
 			isa = PBXGroup;
 			children = (
-				18223A7120A157D200ABA70C /* DataModel.xcdatamodeld */,
+				18A0E83520A59807000F7934 /* Category.swift */,
+				18A0E83320A597F9000F7934 /* Item.swift */,
 			);
 			path = "Data Model";
 			sourceTree = "<group>";
@@ -417,8 +420,9 @@
 			files = (
 				1841B11720A38E8400D98C2A /* CategoryViewController.swift in Sources */,
 				18513B97209ED2B5002D7029 /* ToDoListViewController.swift in Sources */,
-				18223A7320A157D200ABA70C /* DataModel.xcdatamodeld in Sources */,
+				18A0E83420A597F9000F7934 /* Item.swift in Sources */,
 				18513B95209ED2B5002D7029 /* AppDelegate.swift in Sources */,
+				18A0E83620A59807000F7934 /* Category.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -594,7 +598,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = ListUp/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = cs.ListUp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -609,7 +616,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = ListUp/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = cs.ListUp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -625,7 +635,11 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = ListUpTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = cs.ListUpTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -642,7 +656,11 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = ListUpTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = cs.ListUpTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -658,7 +676,11 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = ListUpUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = cs.ListUpUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -674,7 +696,11 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = ListUpUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = cs.ListUpUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -723,19 +749,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		18223A7120A157D200ABA70C /* DataModel.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				18223A7220A157D200ABA70C /* DataModel.xcdatamodel */,
-			);
-			currentVersion = 18223A7220A157D200ABA70C /* DataModel.xcdatamodel */;
-			path = DataModel.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = 18513B89209ED2B5002D7029 /* Project object */;
 }

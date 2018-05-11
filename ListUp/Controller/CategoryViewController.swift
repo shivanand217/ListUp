@@ -8,9 +8,12 @@
 
 import UIKit
 import CoreData
+import RealmSwift
 
 class CategoryViewController: UITableViewController {
 
+    let realm = try! Realm()
+    
     var categoryArray = [Category]()
     
     // For Encoding and Decoding our data to this pre-specified FilePath
@@ -69,7 +72,7 @@ class CategoryViewController: UITableViewController {
         
         let action = UIAlertAction(title: "Add Category", style: .default) { (action) in
             
-            let newCategory = Category(context: self.context)
+            let newCategory = Category()
             newCategory.name = textField.text!
             
             self.categoryArray.append(newCategory)

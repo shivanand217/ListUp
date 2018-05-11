@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import RealmSwift
 
 /** Rule1 = Whenever adding any delegate methods or class set it to self **/
 
