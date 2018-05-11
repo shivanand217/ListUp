@@ -14,14 +14,14 @@ class CategoryViewController: UITableViewController {
 
     let realm = try! Realm()
     
-    var categoryArray = [Category]()
+    var categoryArray : Results<Category>?
     
     // For Encoding and Decoding our data to this pre-specified FilePath
     let dataFilePath = FileManager.default.urls(for: .documentDirectory,
                                                 in: .userDomainMask).first?.appendingPathComponent("Category.plist")
     
-    // shared singleton object of our Coredata context
-    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    // shared singleton object of our Coredata context = for CoreData database
+    // let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,6 +30,8 @@ class CategoryViewController: UITableViewController {
         
         //let request : NSFetchRequest<Category> = Category.fetchRequest()
         //loadCategories(with: request)
+        
+        loadCategories()
     }
     
     override func didReceiveMemoryWarning() {
@@ -37,17 +39,17 @@ class CategoryViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return categoryArray.count
+        return categoryArray?.count ?? 1
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryCell", for: indexPath)
-        let item = categoryArray[indexPath.row]
+        let item = categoryArray?[indexPath.row]
         
-        cell.textLabel?.text = item.name
+        cell.textLabel?.text = item?.name ?? "No Categories Added Yet."
+        
         return cell
-        
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -60,7 +62,7 @@ class CategoryViewController: UITableViewController {
         let destinationViewController = segue.destination as! ToDoListViewController
     
         if let indexPath = tableView.indexPathForSelectedRow {
-            destinationViewController.selectedCategory = categoryArray[indexPath.row]
+            destinationViewController.selectedCategory = categoryArray?[indexPath.row]
         }
     }
 
@@ -75,7 +77,7 @@ class CategoryViewController: UITableViewController {
             let newCategory = Category()
             newCategory.name = textField.text!
             
-            self.categoryArray.append(newCategory)
+            //self.categoryArray.append(newCategory)
             self.saveCategory(category: newCategory)
             
             self.tableView.reloadData()
@@ -94,7 +96,6 @@ class CategoryViewController: UITableViewController {
     }
     
     func saveCategory(category : Category) {
-        
         do {
             try realm.write {
                 realm.add(category)
@@ -104,17 +105,15 @@ class CategoryViewController: UITableViewController {
         }
     }
     
-//    func loadCategories(with request : NSFetchRequest<Category> = Category.fetchRequest()) {
-//
-//        do {
-//            categoryArray = try! context.fetch(request)
-//        } catch {
-//            print("Error loading Categories")
-//        }
-//
-//        tableView.reloadData()
-//    }
+    func loadCategories() {
+        
+        categoryArray = realm.objects(Category.self)
+        
+        tableView.reloadData()
+    }
+    
 }
+
 //
 //extension CategoryViewController : UISearchBarDelegate {
 //

@@ -1,4 +1,3 @@
-//
 //  ViewController.swift
 //  ListUp
 //
@@ -13,13 +12,15 @@ import RealmSwift
 /** Rule1 = Whenever adding any delegate methods or class set it to self **/
 
 class ToDoListViewController: UITableViewController {
-
+    
+    let realm = try! Realm()
+    
     // Item objects
-    var itemArray = [Item]()
+    var todoItems : Results<Item>?
     
     var selectedCategory : Category? {
         didSet {
-            //loadItems()
+            loadItems()
         }
     }
     
@@ -31,8 +32,8 @@ class ToDoListViewController: UITableViewController {
     let dataFilePath = FileManager.default.urls(for: .documentDirectory,
                             in: .userDomainMask).first?.appendingPathComponent("Items.plist")
     
-    // shared singleton object of our Coredata context
-    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    // shared singleton object of our Coredata context = for using CoreData Database
+    // let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     override func viewDidLoad() {
         
@@ -50,18 +51,18 @@ class ToDoListViewController: UITableViewController {
     // TableView DataSource
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return itemArray.count
+        return todoItems?.count ?? 1
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "ToDoItemCell", for: indexPath)
-        let item = itemArray[indexPath.row]
+        let item = todoItems?[indexPath.row]
         
-        cell.textLabel?.text = item.title
+        cell.textLabel?.text = item?.title ?? "No Item Added Yet."
         
         // add and remove checkmark
-        //cell.accessoryType = item.done == true ? .checkmark : .none
+        cell.accessoryType = item?.done == 1 ? .checkmark : .none
         
         return cell
     }
@@ -74,11 +75,11 @@ class ToDoListViewController: UITableViewController {
         // delete from the array
         // itemArray.remove(at: indexPath.row)
         
-//        if itemArray[indexPath.row].done == true {
-//            itemArray[indexPath.row].done = false
-//        } else {
-//            itemArray[indexPath.row].done = true
-//        }
+        if todoItems![indexPath.row].done == 1 {
+            todoItems![indexPath.row].done = 0
+        } else {
+            todoItems![indexPath.row].done = 1
+        }
         
         saveItems()
         
@@ -122,37 +123,23 @@ class ToDoListViewController: UITableViewController {
     // CoreData
     
     // Save to CoreData
-    func saveItems() {
-        
-        do {
-            try context.save()
-        } catch {
-            print("Error saving the Item. \(error)")
-        }
-        tableView.reloadData()
-    }
-    
-    // Fetch from CoreData
-//    func loadItems(with request : NSFetchRequest<Item> = Item.fetchRequest(), predicate : NSPredicate? = nil) {
-//
-//        // for loading items of the selected category
-//        let categoryPredicate = NSPredicate(format: "parentCategory.name MATCHES %@", selectedCategory!.name!)
-//
-//         // adding compound Predicate
-//        if let additionalPredicate = predicate {
-//            request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [categoryPredicate, additionalPredicate])
-//
-//        } else {
-//            request.predicate = categoryPredicate
-//        }
+//    func saveItems() {
 //
 //        do {
-//           itemArray = try! context.fetch(request)
+//            try context.save()
 //        } catch {
-//            print("Error fetching data from context \(error)")
+//            print("Error saving the Item. \(error)")
 //        }
 //        tableView.reloadData()
 //    }
+//
+    // Fetch from CoreData
+    func loadItems() {
+        
+        todoItems = selectedCategory?.items.sorted(byKeyPath: "title", ascending: true)
+        
+        tableView.reloadData()
+    }
     
 
 /** Saving Information Via NSCoder
