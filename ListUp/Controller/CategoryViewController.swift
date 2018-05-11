@@ -28,8 +28,8 @@ class CategoryViewController: UITableViewController {
         
         // print(dataFilePath!)
         
-        let request : NSFetchRequest<Category> = Category.fetchRequest()
-        loadCategories(with: request)
+        //let request : NSFetchRequest<Category> = Category.fetchRequest()
+        //loadCategories(with: request)
     }
     
     override func didReceiveMemoryWarning() {
@@ -76,7 +76,7 @@ class CategoryViewController: UITableViewController {
             newCategory.name = textField.text!
             
             self.categoryArray.append(newCategory)
-            self.saveCategory()
+            self.saveCategory(category: newCategory)
             
             self.tableView.reloadData()
         }
@@ -93,53 +93,55 @@ class CategoryViewController: UITableViewController {
         present(alert, animated: true, completion: nil)
     }
     
-    func saveCategory() {
+    func saveCategory(category : Category) {
         
         do {
-            try! context.save()
+            try realm.write {
+                realm.add(category)
+            }
         } catch {
             print("Error saving the Category.")
         }
     }
     
-    func loadCategories(with request : NSFetchRequest<Category> = Category.fetchRequest()) {
-        
-        do {
-            categoryArray = try! context.fetch(request)
-        } catch {
-            print("Error loading Categories")
-        }
-        
-        tableView.reloadData()
-    }
+//    func loadCategories(with request : NSFetchRequest<Category> = Category.fetchRequest()) {
+//
+//        do {
+//            categoryArray = try! context.fetch(request)
+//        } catch {
+//            print("Error loading Categories")
+//        }
+//
+//        tableView.reloadData()
+//    }
 }
-
-extension CategoryViewController : UISearchBarDelegate {
-    
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        
-        let request : NSFetchRequest<Category> = Category.fetchRequest()
-        let predicate = NSPredicate(format: "name CONTAINS[cd] %@", searchBar.text!)
-        
-        request.predicate = predicate
-        let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
-        request.sortDescriptors = [sortDescriptor]
-        
-        loadCategories(with: request)
-    }
-    
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        
-        if searchBar.text?.count == 0 {
-            print("no text in SearchBar")
-            loadCategories()
-            
-            DispatchQueue.main.async {
-                searchBar.resignFirstResponder()
-            }
-        }
-    }
-    
-}
-
-
+//
+//extension CategoryViewController : UISearchBarDelegate {
+//
+//    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+//
+//        let request : NSFetchRequest<Category> = Category.fetchRequest()
+//        let predicate = NSPredicate(format: "name CONTAINS[cd] %@", searchBar.text!)
+//
+//        request.predicate = predicate
+//        let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
+//        request.sortDescriptors = [sortDescriptor]
+//
+//        loadCategories(with: request)
+//    }
+//
+//    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+//
+//        if searchBar.text?.count == 0 {
+//            print("no text in SearchBar")
+//            loadCategories()
+//
+//            DispatchQueue.main.async {
+//                searchBar.resignFirstResponder()
+//            }
+//        }
+//    }
+//
+//}
+//
+//
