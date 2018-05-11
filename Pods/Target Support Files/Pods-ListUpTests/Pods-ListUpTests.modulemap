@@ -1,0 +1,6 @@
+framework module Pods_ListUpTests {
+  umbrella header "Pods-ListUpTests-umbrella.h"
+
+  export *
+  module * { export * }
+}
