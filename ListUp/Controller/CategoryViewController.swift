@@ -28,9 +28,6 @@ class CategoryViewController: UITableViewController {
         
         // print(dataFilePath!)
         
-        //let request : NSFetchRequest<Category> = Category.fetchRequest()
-        //loadCategories(with: request)
-        
         loadCategories()
     }
     
@@ -106,9 +103,7 @@ class CategoryViewController: UITableViewController {
     }
     
     func loadCategories() {
-        
         categoryArray = realm.objects(Category.self)
-        
         tableView.reloadData()
     }
     
